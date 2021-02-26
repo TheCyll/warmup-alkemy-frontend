@@ -32,6 +32,7 @@ body {
 
 $dark-bg-color: hsl(0, 0%, 10%);
 $light-bg-color: hsl(0, 0%, 20%);
+$lighter-bg-color: hsl(0, 0%, 40%);
 $text-color: hsl(0, 0%, 80%);
 $text-hover-color: hsl(240, 35%, 45%);
 
@@ -41,6 +42,8 @@ $edit-button-color: hsl(60, 85%, 45%);
 $edit-button-text-color: hsl(60, 85%, 15%);
 $delete-button-color: hsl(0, 80%, 40%);
 $delete-button-text-color: hsl(0, 80%, 15%);
+$accept-button-color: hsl(135, 85%, 30%);
+$accept-button-text-color: hsl(135, 85%, 15%);
 
 header.header {
   background-color: $dark-bg-color;
@@ -74,7 +77,7 @@ main.main {
   min-height: 100vh;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 2em;
+  padding: 2em;  
 
   .info-container {
     flex-direction: column;
@@ -124,9 +127,60 @@ main.main {
         background-color: $delete-button-color;
         color: $delete-button-text-color;
       }
-    }
-    
+    }    
   }
 }
+
+.form-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(34, 34, 34, 0.8);
+  position: fixed;
+  left: 0;
+  top: 0;
+  // display: none;
+  
+  form.post-form {
+
+    background-color: $lighter-bg-color;
+    flex-direction: column;
+    color: $text-color;
+    padding: 2em; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+
+    input {
+      margin: 0.5em 2em 2em;
+      padding: 0.3em;
+      background-color: $dark-bg-color;
+      color: $text-color;
+      border: none;
+      border-radius: 0.2em;
+
+      &[type=number] {
+        width: 50%;
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+      }
+    }  
+
+    span {
+      margin-bottom: 2em;
+      padding: 0.4em 0.6em;
+      background-color: $delete-button-color;
+      color: $text-color;    
+    }
+
+    button.accept {
+      background-color: $accept-button-color;
+      color: $accept-button-text-color;
+      padding: 0.5em 1.5em;
+    }
+  }
+
+}
+
 
 

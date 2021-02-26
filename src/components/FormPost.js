@@ -16,25 +16,29 @@ const FormPost = () => {
       initialValues={/*initialValuesEdit || */ initValues}
       enableReinitialize={true}
       validationSchema={Yup.object({
-        title: Yup.string().trim().max(50, 'Debe tener 50 carácteres o menos').required('El campo es requerido'),
-        body: Yup.string().trim().max(512, 'Debe tener 512 carácteres o menos').required('El campo es requerido'),
-        userId: Yup.number().required('El campo es requerido')        
+        title: Yup.string().trim().max(50, 'Title needs to be 50 characters or less').required('The field is required'),
+        body: Yup.string().trim().max(512, 'Body needs to be 512 characters or less').required('The field is required'),
+        userId: Yup.number().required('This field should be a number')       
       })}
       // onSubmit={(values, { setSubmitting }) => {
       //   onHandleSubmit(values);        
       //   setSubmitting(false);
       // }} 
     >
-    <Form /*id={id}*/ className="post-form flex-container" noValidate>      
-      <label htmlFor="concern">Concepto</label>
-      <Field name="concern" type="text" />
-      <ErrorMessage component="span" className="error-message" name="concern" />  
+    <Form className="post-form flex-container" noValidate>      
+      <label htmlFor="title">Title</label>
+      <Field name="title" type="text" />
+      <ErrorMessage component="span" className="error-message" name="title" />        
 
-      <label htmlFor="amount">Monto</label>
-      <Field name="amount" type="number" />
-      <ErrorMessage component="span" className="error-message" name="amount" /> 
+      <label htmlFor="body">Body</label>
+      <Field name="body" type="text" />
+      <ErrorMessage component="span" className="error-message" name="body" /> 
 
-      <button type="submit">Guardar</button>                
+      <label htmlFor="userId">User ID</label>
+      <Field name="userId" type="number" />
+      <ErrorMessage component="span" className="error-message" name="userId" /> 
+
+      <button type="submit" className="button accept">Save</button>                
     </Form>
     </Formik>
   )
