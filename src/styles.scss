@@ -89,7 +89,21 @@ main.main {
     padding: 2em 2em;    
     flex-wrap: wrap; 
     background-color: rgba(#535353, 0.5);
+    position: relative;
 
+    .button.create {
+      background-color: $accept-button-color;
+      color: $text-color;
+      padding: 0.5em 1.5em;
+      position: absolute;
+      left: calc(100% - 5rem);
+      top: -2.5rem;
+
+      &:hover {        
+        cursor: pointer;
+        transform: scale(1.1); 
+      }
+    }
 
     .card {
       padding: 1em;      
@@ -126,7 +140,7 @@ main.main {
       .button.delete {
         background-color: $delete-button-color;
         color: $delete-button-text-color;
-      }
+      }      
     }    
   }
 }
@@ -138,9 +152,9 @@ main.main {
   position: fixed;
   left: 0;
   top: 0;
-  // display: none;
-  
-  form.post-form {
+  z-index: 10;
+    
+  form.post-form {    
 
     background-color: $lighter-bg-color;
     flex-direction: column;
@@ -149,7 +163,19 @@ main.main {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);     
+
+    .close-modal {   
+      font-size: 1.5rem;
+      position: absolute; 
+      left: calc(100% - 1em);
+      top: 0.3em;
+      z-index: 10;
+      
+      &:hover {
+        cursor: pointer;        
+      }      
+    }
 
     input {
       margin: 0.5em 2em 2em;
@@ -177,9 +203,13 @@ main.main {
       background-color: $accept-button-color;
       color: $accept-button-text-color;
       padding: 0.5em 1.5em;
-    }
-  }
 
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+    }
+  } 
 }
 
 

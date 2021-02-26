@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { API_URI } from '../config/config';
 import FormPost from './FormPost';
@@ -8,15 +8,16 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState(0);
   const [firstMount, setFirstMount] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
+  const modalRef = useRef();  
 
   useEffect(() => {
 
     const getPosts = async () => {
       try { 
-        const { data } = await axios.get(`${API_URI}/posts`);
-        console.log(data);        
-        setPosts(data);
+        const { data } = await axios.get(`${API_URI}/posts`);                     
+        setPosts(data.reverse());
       } catch(err) {        
         if(err) {
           throw new Error(err.message);
@@ -25,10 +26,41 @@ const Home = () => {
     }
 
     if( firstMount ){
-      getPosts();   
       setFirstMount(false);
+      getPosts();   
     }    
+
+    // for(let i = 0; i <= count; i++) {
+    //   const createdPost = JSON.parse(localStorage.getItem(i));
+    //   console.log(createdPost);
+    //   if ( createdPost ){        
+    //     posts.unshift(createdPost);
+    //   }
+    // }
+
+
   });
+
+  const closeModule = (e) => {
+    if( modalRef.current === e.target ){
+      setShowModal(false);
+    }
+  }
+
+  const toggleModal = () => {
+    setShowModal(prev => !prev);
+  }  
+
+  const handleSubmit = async ( values ) => {
+    const { data } = await axios.post(`${API_URI}/posts`, values);    
+    
+    localStorage.setItem(count , JSON.stringify(data))
+
+    posts.unshift(data);    
+    
+    setCount(count + 1);
+    toggleModal();
+  }
 
   return (
     <main className="flex-container main">
@@ -36,10 +68,15 @@ const Home = () => {
         <h1>Posts</h1>
         <p>You can view all your posts here</p>
       </div>
-      <div className="form-container">
-        <FormPost />        
-      </div>
+      { showModal ? (          
+        <div className="form-container" ref={ modalRef } onClick={ closeModule }>          
+          <FormPost toggleModal={ toggleModal } onHandleSubmit={ handleSubmit }/>
+        </div> 
+        ): null      
+      }
+            
       <div className="card-container flex-container">
+      <button className="button create" onClick={ toggleModal }>Create</button>
       { posts.map((post) => {
           return (
             <div className="card flex-container" key={post.id}>

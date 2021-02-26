@@ -2,16 +2,15 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const FormPost = () => {
+const FormPost = ({ toggleModal, onHandleSubmit }) => {
 
   const initValues = {
-    concern: '',
-    amount: '',
-    date: '',
-    type: ''
-  }
+    title: '',
+    body: '',
+    userId: ''
+  } 
 
-  return (    
+  return (
     <Formik 
       initialValues={/*initialValuesEdit || */ initValues}
       enableReinitialize={true}
@@ -20,12 +19,15 @@ const FormPost = () => {
         body: Yup.string().trim().max(512, 'Body needs to be 512 characters or less').required('The field is required'),
         userId: Yup.number().required('This field should be a number')       
       })}
-      // onSubmit={(values, { setSubmitting }) => {
-      //   onHandleSubmit(values);        
-      //   setSubmitting(false);
-      // }} 
+      onSubmit={(values, { setSubmitting }) => {
+        onHandleSubmit(values);        
+        setSubmitting(false);
+      }} 
     >
-    <Form className="post-form flex-container" noValidate>      
+    <Form className="post-form flex-container" noValidate>
+
+      <div className="close-modal" onClick={ toggleModal }>X</div>                  
+
       <label htmlFor="title">Title</label>
       <Field name="title" type="text" />
       <ErrorMessage component="span" className="error-message" name="title" />        
@@ -40,7 +42,7 @@ const FormPost = () => {
 
       <button type="submit" className="button accept">Save</button>                
     </Form>
-    </Formik>
+    </Formik>    
   )
   
 }
