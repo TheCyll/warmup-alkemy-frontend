@@ -34,7 +34,7 @@ const Home = () => {
       getPosts();   
     } 
 
-  });
+  }, [count]);
 
   const closeModule = (e) => {
     if( modalRef.current === e.target ){
@@ -71,6 +71,18 @@ const Home = () => {
   }
 
   const handleSubmitEdit = async ( values ) => {
+
+    
+    if ( values.id > 100) {      
+      const editedPosts = posts.map((item) => { return item.id == values.id ? values : item; })
+      setPosts(editedPosts); 
+      
+      setCount(count + 1);
+      toggleEdit();
+      return;
+    
+    }    
+    
     try {
       const { data } = await axios.put(`${API_URI}/posts/${values.id}`, values);          
 
@@ -80,11 +92,29 @@ const Home = () => {
       setCount(count + 1);
       toggleEdit();
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   }
 
 
+
+  const handleDelete = async ( post ) => {
+    try {
+
+      await axios.delete(`${API_URI}/posts/${post.id}`);          
+
+      const index = posts.indexOf(post);
+
+      if (index > -1) {        
+        posts.splice(index, 1);
+      }
+
+      setCount(count + 1);
+      
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 
   return (
     <main className="flex-container main">
@@ -121,7 +151,7 @@ const Home = () => {
               <span>
                 <button className="button details" onClick={ () => toggleDetails(post) }>Details</button>
                 <button className="button edit" onClick={ () => toggleEdit(post) }>Edit</button>
-                <button className="button delete">Delete</button>
+                <button className="button delete" onClick={ () => handleDelete( post ) }>Delete</button>
               </span>              
             </div>          
           )          

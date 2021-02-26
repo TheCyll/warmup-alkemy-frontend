@@ -226,6 +226,13 @@ main.main {
   } 
 
   .modal.post {
+
+    min-width: 50vw;
+    
+    .content-container {
+      flex-direction: column;
+    }
+
     span {
       width: 100%;
       display: flex;
