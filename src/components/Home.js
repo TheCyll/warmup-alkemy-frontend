@@ -3,6 +3,7 @@ import axios from 'axios';
 import { API_URI } from '../config/config';
 import FormPost from './FormPost';
 import { Post } from './Post';
+import { DeleteAlert } from './utilities/DeleteAlert';
 
 const Home = () => {
 
@@ -12,6 +13,7 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [onePost, setOnePost] = useState({});
 
   const modalRef = useRef();  
@@ -41,6 +43,7 @@ const Home = () => {
       setShowModal(false);
       setShowDetails(false);
       setShowEdit(false);
+      setShowDelete(false);
     }
   }
 
@@ -57,6 +60,10 @@ const Home = () => {
     setOnePost(post); 
     setShowEdit(prev => !prev);
   }
+  const toggleDelete = (post) => {
+    setOnePost(post); 
+    setShowDelete(prev => !prev);
+  }
 
   const handleSubmit = async ( values ) => {
     try {
@@ -71,22 +78,19 @@ const Home = () => {
   }
 
   const handleSubmitEdit = async ( values ) => {
-
     
     if ( values.id > 100) {      
-      const editedPosts = posts.map((item) => { return item.id == values.id ? values : item; })
+      const editedPosts = posts.map((item) => { return item.id === values.id ? values : item; })
       setPosts(editedPosts); 
       
       setCount(count + 1);
       toggleEdit();
-      return;
-    
-    }    
-    
+      return;    
+    }   
     try {
       const { data } = await axios.put(`${API_URI}/posts/${values.id}`, values);          
 
-      const editedPosts = posts.map((item) => { return item.id == values.id ? data : item; });
+      const editedPosts = posts.map((item) => { return item.id === values.id ? data : item; });
       setPosts(editedPosts); 
       
       setCount(count + 1);
@@ -96,20 +100,17 @@ const Home = () => {
     }
   }
 
-
-
   const handleDelete = async ( post ) => {
-    try {
+    try {  
+      await axios.delete(`${API_URI}/posts/${post.id}`);
 
-      await axios.delete(`${API_URI}/posts/${post.id}`);          
-
-      const index = posts.indexOf(post);
-
+      const index = posts.indexOf(post);      
       if (index > -1) {        
         posts.splice(index, 1);
       }
 
       setCount(count + 1);
+      toggleDelete();
       
     } catch (error) {
       throw new Error(error);
@@ -133,11 +134,18 @@ const Home = () => {
             <Post post={ onePost } toggleDetails={ toggleDetails }/>
           </div>
         )
-      }
+      }      
       {
         showEdit && (
           <div className="modal-container" ref={ modalRef } onClick={ closeModule }>          
             <FormPost initValuesPost={ onePost } toggleForm={ toggleEdit } onHandleSubmit={ handleSubmitEdit }/>
+          </div> 
+        )
+      }
+      {
+        showDelete && (
+          <div className="modal-container" ref={ modalRef } onClick={ closeModule }> 
+            <DeleteAlert post={ onePost } toggleDelete={ toggleDelete } handleDelete={ handleDelete } />         
           </div> 
         )
       }         
@@ -151,7 +159,7 @@ const Home = () => {
               <span>
                 <button className="button details" onClick={ () => toggleDetails(post) }>Details</button>
                 <button className="button edit" onClick={ () => toggleEdit(post) }>Edit</button>
-                <button className="button delete" onClick={ () => handleDelete( post ) }>Delete</button>
+                <button className="button delete" onClick={ () => toggleDelete(post) }>Delete</button>
               </span>              
             </div>          
           )          

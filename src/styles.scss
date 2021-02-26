@@ -257,5 +257,29 @@ main.main {
   }
 }
 
+.modal.delete-alert {
 
+  background-color: $lighter-bg-color;
+  border: $delete-button-color solid 0.2rem;
 
+  h3 {
+    color: $delete-button-color;
+    font-size: 2rem;
+  }
+
+  h5 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: 0.8em 1.2em;
+    background-color: $delete-button-color;
+    color: $delete-button-text-color;
+    
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+}
