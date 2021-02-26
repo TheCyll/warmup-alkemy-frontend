@@ -11,7 +11,122 @@
 body {
   background-color: #eee;
   margin: 0;
-  padding: 0;
+  padding: 0;  
   font-family: Helvetica, Arial, sans-serif;
 }
+
+/* UTILITIES */
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  padding: 0.2em 0.5em;
+  text-align: center;
+  border: none;
+  border-radius: 0.2em;
+}
+
+$dark-bg-color: hsl(0, 0%, 10%);
+$light-bg-color: hsl(0, 0%, 20%);
+$text-color: hsl(0, 0%, 80%);
+$text-hover-color: hsl(240, 35%, 45%);
+
+$details-button-color: hsl(175, 75%, 30%);
+$details-button-text-color: hsl(175, 75%, 15%);
+$edit-button-color: hsl(60, 85%, 45%);
+$edit-button-text-color: hsl(60, 85%, 15%);
+$delete-button-color: hsl(0, 80%, 40%);
+$delete-button-text-color: hsl(0, 80%, 15%);
+
+header.header {
+  background-color: $dark-bg-color;
+  color: $text-color;
+  justify-content: space-between;
+
+  h1 {
+    margin: 0;
+    padding: 0.5em 0.2em;
+  }
+  nav {
+    margin: 1em;
+
+    a {
+      margin-right: 1em;
+      text-decoration: none;
+      color: $text-color;
+
+      &:hover {
+        cursor: pointer;
+        color: $text-hover-color;
+      }
+    }    
+  }
+}
+
+main.main {
+  background-color: $light-bg-color;
+  color: $text-color;
+  height: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2em;
+
+  .info-container {
+    flex-direction: column;
+    margin-bottom: 2em;
+  }
+
+  .card-container {
+    width: 100%;
+    padding: 2em 2em;    
+    flex-wrap: wrap; 
+    background-color: rgba(#535353, 0.5);
+
+
+    .card {
+      padding: 1em;      
+      background-color: $dark-bg-color;
+      flex-direction: column;      
+      margin: 0.5em;
+
+      h3 {
+        margin: 0;
+        margin-bottom: 0.8em;
+      }
+
+      button {
+        margin-right: 0.8em;
+        color: $text-color;
+        font-size: 1rem;
+
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);          
+        }
+      }
+
+      .button.details {
+        background-color: $details-button-color;
+        color: $details-button-text-color;
+      }
+
+      .button.edit {
+        background-color: $edit-button-color;
+        color: $edit-button-text-color;
+      }
+
+      .button.delete {
+        background-color: $delete-button-color;
+        color: $delete-button-text-color;
+      }
+    }
+    
+  }
+}
+
 
