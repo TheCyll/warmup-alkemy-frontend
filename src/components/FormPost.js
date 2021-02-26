@@ -33,7 +33,7 @@ const FormPost = ({ toggleModal, onHandleSubmit }) => {
       <ErrorMessage component="span" className="error-message" name="title" />        
 
       <label htmlFor="body">Body</label>
-      <Field name="body" type="text" />
+      <Field name="body" as="textarea"/>
       <ErrorMessage component="span" className="error-message" name="body" /> 
 
       <label htmlFor="userId">User ID</label>
@@ -43,8 +43,7 @@ const FormPost = ({ toggleModal, onHandleSubmit }) => {
       <button type="submit" className="button accept">Save</button>                
     </Form>
     </Formik>    
-  )
-  
+  )  
 }
 
 export default FormPost;

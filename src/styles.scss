@@ -106,7 +106,8 @@ main.main {
     }
 
     .card {
-      padding: 1em;      
+      padding: 1em;    
+      width: 90%;  
       background-color: $dark-bg-color;
       flex-direction: column;      
       margin: 0.5em;
@@ -189,8 +190,21 @@ main.main {
         width: 50%;
         -webkit-appearance: none;
         -moz-appearance: textfield;
-      }
+      }      
     }  
+
+    textarea {
+      margin: 0.5em 2em 2em;
+      resize: vertical;
+      width: auto;
+      min-width: 15em;
+      min-height: 10vh;
+      max-height: 25vh;
+      background-color: $dark-bg-color;
+      color: $text-color;
+      border: none;
+      border-radius: 0.2em;
+    }
 
     span {
       margin-bottom: 2em;

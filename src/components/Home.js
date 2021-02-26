@@ -28,17 +28,8 @@ const Home = () => {
     if( firstMount ){
       setFirstMount(false);
       getPosts();   
-    }    
-
-    // for(let i = 0; i <= count; i++) {
-    //   const createdPost = JSON.parse(localStorage.getItem(i));
-    //   console.log(createdPost);
-    //   if ( createdPost ){        
-    //     posts.unshift(createdPost);
-    //   }
-    // }
-
-
+    } 
+    
   });
 
   const closeModule = (e) => {
@@ -52,9 +43,7 @@ const Home = () => {
   }  
 
   const handleSubmit = async ( values ) => {
-    const { data } = await axios.post(`${API_URI}/posts`, values);    
-    
-    localStorage.setItem(count , JSON.stringify(data))
+    const { data } = await axios.post(`${API_URI}/posts`, values); 
 
     posts.unshift(data);    
     
