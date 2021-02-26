@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const FormPost = ({ toggleModal, onHandleSubmit }) => {
+const FormPost = ({ initValuesPost, toggleForm, onHandleSubmit }) => {
 
   const initValues = {
     title: '',
@@ -12,7 +12,7 @@ const FormPost = ({ toggleModal, onHandleSubmit }) => {
 
   return (
     <Formik 
-      initialValues={/*initialValuesEdit || */ initValues}
+      initialValues={initValuesPost ||  initValues}
       enableReinitialize={true}
       validationSchema={Yup.object({
         title: Yup.string().trim().max(50, 'Title needs to be 50 characters or less').required('The field is required'),
@@ -24,9 +24,9 @@ const FormPost = ({ toggleModal, onHandleSubmit }) => {
         setSubmitting(false);
       }} 
     >
-    <Form className="post-form flex-container" noValidate>
+    <Form className="modal flex-container" noValidate>
 
-      <div className="close-modal" onClick={ toggleModal }>X</div>                  
+      <div className="close-modal" onClick={ toggleForm }>X</div>                  
 
       <label htmlFor="title">Title</label>
       <Field name="title" type="text" />
